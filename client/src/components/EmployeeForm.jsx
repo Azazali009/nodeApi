@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import FormRow from "./FormRow";
+import axios from "axios";
 
-const EmployeeForm = ({
-  formData,
-  setFormData,
-  handleCloseModal,
-  handleData,
-}) => {
+const EmployeeForm = ({ formData, setFormData, handleCloseModal }) => {
   const [loading, setLoading] = useState(false);
 
   //   handle form input field data
@@ -22,22 +18,18 @@ const EmployeeForm = ({
     try {
       if (formData.phone.length < 11)
         return alert("Phone number must be 11 digit long.");
-      const res = await fetch(`http://localhost:3000/store`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
+      const res = await axios.post("http://localhost:3000/store", formData);
 
-      if (res.ok) {
+      // For debugging
+      console.log(res);
+
+      if (res?.status === 200) {
         handleCloseModal();
-        handleData();
-        return alert(data?.message);
+        return alert(res?.data.message);
       }
     } catch (error) {
       console.log("Error", error);
+      alert(error.response.data.message);
     } finally {
       setLoading(false);
     }

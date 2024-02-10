@@ -9,6 +9,6 @@ const EmployeeController = require("../controllers/EmployeeController");
 router.get("/", EmployeeController.index); // Route to handle GET requests for listing employees
 router.post("/show", EmployeeController.show); // Route to handle POST requests for showing a specific employee
 router.post("/store", EmployeeController.store); // Route to handle POST requests for storing a new employee
-router.delete("/delete", EmployeeController.destroy); // Route to handle POST requests for deleting an employee
+router.post("/delete", EmployeeController.destroy); // Route to handle POST requests for deleting an employee
 
 module.exports = router; // Exporting the router for use in other files

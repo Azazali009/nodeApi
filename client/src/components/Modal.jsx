@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CloseButton from "./CloseButton";
 import EmployeeForm from "./EmployeeForm";
 
-const Modal = ({ setShowModal, handleData }) => {
+const Modal = ({ setShowModal }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,7 +27,6 @@ const Modal = ({ setShowModal, handleData }) => {
           formData={formData}
           setFormData={setFormData}
           handleCloseModal={handleCloseModal}
-          handleData={handleData}
         />
       </div>
     </div>

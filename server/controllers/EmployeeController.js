@@ -49,7 +49,7 @@ const store = (req, res, next) => {
       });
     })
     .catch((error) => {
-      res.json({
+      res.status(400).json({
         message: "An error occurred!", // Sending an error message if an error occurs
         error,
       });
@@ -82,14 +82,17 @@ const update = (req, res, next) => {
 // Method to delete an employee
 const destroy = (req, res, next) => {
   let employeeID = req.body.employeeID;
+
   Employee.findByIdAndDelete(employeeID)
     .then(() => {
-      res.json({
+      res.status(200).json({
         message: "Employee deleted successfully!", // Sending a success message if employee is deleted successfully
       });
     })
     .catch((error) => {
-      res.json({
+      res.status(400).json({
+        status: "failed",
+        error,
         message: "An error occurred!", // Sending an error message if an error occurs
       });
     });
