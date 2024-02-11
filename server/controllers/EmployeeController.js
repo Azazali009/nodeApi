@@ -7,12 +7,12 @@ const { error } = require("console"); // Importing the error object from the con
 const index = (req, res, next) => {
   Employee.find() // MongoDB query to retrieve all employees
     .then((response) => {
-      res.json({
+      res.status(200).json({
         response, // Sending the response as JSON
       });
     })
     .catch((error) => {
-      res.json({
+      res.status(400).json({
         message: "An error occurred!", // Sending an error message if an error occurs
       });
     });
@@ -23,10 +23,10 @@ const show = (req, res, next) => {
   let employeeID = req.body.employeeID;
   Employee.findById(employeeID)
     .then((response) => {
-      res.json(response); // Sending the response as JSON
+      res.status(200).json(response); // Sending the response as JSON
     })
     .catch((error) => {
-      res.json({
+      res.status(400).json({
         message: "An error occurred!", // Sending an error message if an error occurs
       });
     });
@@ -44,7 +44,7 @@ const store = (req, res, next) => {
   employee
     .save()
     .then((response) => {
-      res.json({
+      res.status(201).json({
         message: "Employee added successfully", // Sending a success message if employee is added successfully
       });
     })
@@ -68,12 +68,12 @@ const update = (req, res, next) => {
   };
   Employee.findByIdAndUpdate(employeeID, { $set: updatedData })
     .then(() => {
-      res.json({
+      res.status(201).json({
         message: "Employee updated successfully!", // Sending a success message if employee is updated successfully
       });
     })
     .catch((error) => {
-      res.json({
+      res.status(400).json({
         message: "An error occurred!", // Sending an error message if an error occurs
       });
     });
