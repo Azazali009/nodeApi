@@ -5,6 +5,7 @@ import UpdateEmployee from "./UpdateEmployee";
 
 const Employee = () => {
   const [show, setShow] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
   const [editEmployee, setEditEmployee] = useState("");
 
   return (
@@ -16,11 +17,18 @@ const Employee = () => {
         setShow={setShow}
       />
       <ReadEmployees
-        show={show}
-        setShow={setShow}
+        // show={show}
+        // setShow={setShow}
+        setShowEditForm={setShowEditForm}
         setEditEmployee={setEditEmployee}
       />
-      {/* <UpdateEmployee /> */}
+      {showEditForm && (
+        <UpdateEmployee
+          setShowEditForm={setShowEditForm}
+          editEmployee={editEmployee}
+          setEditEmployee={setEditEmployee}
+        />
+      )}
     </div>
   );
 };

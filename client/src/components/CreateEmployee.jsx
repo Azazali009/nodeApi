@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const CreateEmployee = ({ show, setShow, editEmployee, setEditEmployee }) => {
-  const isEdit = Boolean(editEmployee._id);
+  // const isEdit = Boolean(editEmployee._id);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -12,20 +12,17 @@ const CreateEmployee = ({ show, setShow, editEmployee, setEditEmployee }) => {
     phone: "",
   });
 
-  const inputData = isEdit
-    ? { employeeID: editEmployee._id, ...formData }
-    : formData;
+  // const inputData = isEdit
+  //   ? { employeeID: editEmployee._id, ...formData }
+  //   : formData;
 
   // This function is for add new employee and update employee
-  // const addNewEmployeeData = async (e) => {
-  const editAddEmployee = async (e) => {
+  const addNewEmployeeData = async (e) => {
+    // const editAddEmployee = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(
-        `http://localhost:3000/${isEdit ? "update" : "store"}`,
-        inputData
-      );
+      const res = await axios.post(`http://localhost:3000/store`, formData);
       if (res.status === 201) {
         alert(res.data.message);
         setShow(false);
@@ -36,7 +33,7 @@ const CreateEmployee = ({ show, setShow, editEmployee, setEditEmployee }) => {
           age: "",
           phone: "",
         });
-        setEditEmployee("");
+        //  setEditEmployee('')
       }
     } catch (error) {
       console.log(error);
@@ -49,19 +46,22 @@ const CreateEmployee = ({ show, setShow, editEmployee, setEditEmployee }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  useEffect(() => {
-    isEdit && setFormData(editEmployee);
-  }, [setFormData, editEmployee, isEdit]);
+  // useEffect(() => {
+  //   isEdit && setFormData(editEmployee);
+  // }, [setFormData, editEmployee, isEdit]);
   return (
-    <div className="p-8 ">
-      <button onClick={() => setShow((show) => !show)} className="btn mb-8">
+    <div className="p-8 flex flex-col justify-center items-center mb-8 mx-auto">
+      <button onClick={() => setShow((show) => !show)} className="btn mb-2">
         add new employee
       </button>
       {show && (
         <form
-          onSubmit={editAddEmployee}
+          onSubmit={addNewEmployeeData}
           className=" shadow-2xl w-fit rounded-lg p-8 flex flex-col gap-5"
         >
+          <h1 className=" text-center text-2xl my-8 font-bold text-sky-500">
+            Create new Employee
+          </h1>
           <div className=" grid grid-cols-[10rem_1fr] gap-2">
             <label>Employee Name:</label>
             <input
@@ -84,7 +84,7 @@ const CreateEmployee = ({ show, setShow, editEmployee, setEditEmployee }) => {
               className="input input-bordered w-full max-w-xs"
             />
           </div>
-          <div className=" grid grid-cols-[10rem_1fr] gap-2">
+          <div className="grid grid-cols-[10rem_1fr] gap-2">
             <label>Employee Age:</label>
             <input
               type="number"
@@ -129,11 +129,10 @@ const CreateEmployee = ({ show, setShow, editEmployee, setEditEmployee }) => {
             <button
               type="submit"
               disabled={loading}
-              className={`btn capitalize ${
-                isEdit ? "btn-success" : "btn-neutral"
-              }`}
+              className={`btn capitalize 
+                 btn-neutral`}
             >
-              {isEdit ? "Update employee" : "add employee"}
+              add employee
             </button>
           </div>
         </form>

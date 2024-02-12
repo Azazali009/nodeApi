@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const ReadEmployees = ({ show, setShow, setEditEmployee }) => {
+const ReadEmployees = ({ setShowEditForm, setEditEmployee }) => {
   const [employees, setEmployees] = useState([]);
 
   // Get employees data
@@ -37,7 +37,7 @@ const ReadEmployees = ({ show, setShow, setEditEmployee }) => {
       });
       if (res.status === 200) {
         setEditEmployee(res.data);
-        setShow(true);
+        setShowEditForm(true);
       }
       console.log(res);
     } catch (error) {
